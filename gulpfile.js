@@ -8,6 +8,7 @@ var gulp   = require('gulp'),
     concat = require('gulp-concat');
     open = require('gulp-open');
     nodemon = require('gulp-nodemon');
+    browserSync = require('browser-sync').create();
 
 // define the default task and add the watch task to it
 gulp.task('default', ['watch']);
@@ -21,25 +22,35 @@ gulp.task('build-css', function() {
     .pipe(gulp.dest('public/assets/stylesheets'));
 });
 
-
 //starts a node server from server.js
 gulp.task('start', function () {
-  nodemon({
-    script: 'server.js'
-  , ext: 'js html'
-  , env: { 'NODE_ENV': 'development' }
-  })
-})
-
-//open local url in port 3000
-gulp.task('url', function(){
-  var options = {
+	nodemon({
+	script: 'server.js'
+	, ext: 'js html'
+	, env: { 'NODE_ENV': 'development' }
+	});
+	// browserSync.init({
+	//     server: {
+	//         baseDir: "./"
+	//     }
+	// });
+    var options = {
     url: 'http://localhost:3000',
     app: 'google chrome'
   };
-  gulp.src('./index.html')
+  gulp.src('./public/index.html')
   .pipe(open('', options));
-});
+})
+
+//open local url in port 3000
+// gulp.task('url', function(){
+//   var options = {
+//     url: 'http://localhost:3000',
+//     app: 'google chrome'
+//   };
+//   gulp.src('./index.html')
+//   .pipe(open('', options));
+// });
 
 // configure the jshint task
 gulp.task('jshint', function() {
