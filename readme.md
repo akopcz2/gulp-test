@@ -1,6 +1,7 @@
 This is a simple gulp test build 
-```
-	Gulp Tasks
-```
-	Dependencies found in package.json
-```
+
+	npm install node
+	npm install gulp
+
+	gulp
+
