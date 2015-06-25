@@ -1,0 +1,29 @@
+{
+  "name": "gulpTest",
+  "version": "1.0.0",
+  "description": "gulpTest",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "none"
+  },
+  "keywords": [
+    "none"
+  ],
+  "author": "me",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-jshint": "^1.11.0",
+    "gulp-nodemon": "^2.0.3",
+    "gulp-open": "^0.3.2",
+    "gulp-sass": "^2.0.2",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-util": "^3.0.6",
+    "jshint-stylish": "^2.0.1"
+  }
+}
