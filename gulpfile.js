@@ -3,23 +3,21 @@ var gulp   = require('gulp'),
 	gutil = require('gulp-util')
 
     jshint = require('gulp-jshint');
-    sass   = require('gulp-sass');
     sourcemaps = require('gulp-sourcemaps');
     concat = require('gulp-concat');
     open = require('gulp-open');
     nodemon = require('gulp-nodemon');
     browserSync = require('browser-sync').create();
+	sass = require('gulp-ruby-sass');
+	rename = require('gulp-rename');
 
 // define the default task and add the watch task to it
-gulp.task('default', ['watch']);
 
 //build the css
 gulp.task('build-css', function() {
-  return gulp.src('source/scss/**/*.scss')
-  	.pipe(sourcemaps.init())
-	  .pipe(sass())
-	.pipe(sourcemaps.write())
-    .pipe(gulp.dest('public/assets/stylesheets'));
+    return gulp.src('./source/scss/css.scss', {style: 'compressed'})
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest('public/assets/stylesheets/'));
 });
 
 gulp.task('express', function() {
@@ -76,8 +74,8 @@ function notifyLiveReload(event) {
 // configure which files to watch and what tasks to use on file changes
 gulp.task('watch', function() {
   gulp.watch('source/javascript/**/*.js', ['jshint']);
-  gulp.watch('source/scss/**/*.scss', ['build-css']);
-    gulp.watch('*.html', notifyLiveReload);
+  gulp.watch('source/scss/css.scss', ['build-css']);
+  gulp.watch('*.html', notifyLiveReload);
   gulp.watch('css/*.css', notifyLiveReload);
 });
 
@@ -93,6 +91,6 @@ gulp.task('build-js', function() {
 });
 
 
-gulp.task('default', ['express', 'livereload', 'watch' , 'start'], function() {
+gulp.task('default', ['express', 'livereload', 'watch' , 'start' ,'build-css'], function() {
 
 });
