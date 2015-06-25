@@ -1,7 +1,6 @@
 This is a simple gulp test build 
 ```
-### Gulp Tasks
+	Gulp Tasks
 ```
->Dependencies found in package.json
+	Dependencies found in package.json
 ```
->
