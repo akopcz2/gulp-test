@@ -22,6 +22,14 @@ gulp.task('build-css', function() {
     .pipe(gulp.dest('public/assets/stylesheets'));
 });
 
+gulp.task('express', function() {
+  var express = require('express');
+  var app = express();
+  app.use(require('connect-livereload')({port: 3002}));
+  app.use(express.static(__dirname));
+  app.listen(3002);
+});
+
 //starts a node server from server.js
 gulp.task('start', function () {
 	nodemon({
@@ -42,16 +50,6 @@ gulp.task('start', function () {
   .pipe(open('', options));
 })
 
-//open local url in port 3000
-// gulp.task('url', function(){
-//   var options = {
-//     url: 'http://localhost:3000',
-//     app: 'google chrome'
-//   };
-//   gulp.src('./index.html')
-//   .pipe(open('', options));
-// });
-
 // configure the jshint task
 gulp.task('jshint', function() {
   return gulp.src('source/javascript/**/*.js')
@@ -59,10 +57,28 @@ gulp.task('jshint', function() {
     .pipe(jshint.reporter('jshint-stylish'));
 });
 
+var tinylr;
+gulp.task('livereload', function() {
+  tinylr = require('tiny-lr')();
+  tinylr.listen(4002);
+});
+
+function notifyLiveReload(event) {
+  var fileName = require('path').relative(__dirname, event.path);
+
+  tinylr.changed({
+    body: {
+      files: [fileName]
+    }
+  });
+}
+
 // configure which files to watch and what tasks to use on file changes
 gulp.task('watch', function() {
   gulp.watch('source/javascript/**/*.js', ['jshint']);
   gulp.watch('source/scss/**/*.scss', ['build-css']);
+    gulp.watch('*.html', notifyLiveReload);
+  gulp.watch('css/*.css', notifyLiveReload);
 });
 
 //build the js and bundle it together
@@ -74,4 +90,9 @@ gulp.task('build-js', function() {
       .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop()) 
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('public/assets/javascript'));
+});
+
+
+gulp.task('default', ['express', 'livereload', 'watch' , 'start'], function() {
+
 });

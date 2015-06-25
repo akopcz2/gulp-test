@@ -17,6 +17,7 @@
   "license": "MIT",
   "devDependencies": {
     "browser-sync": "^2.7.12",
+    "connect-livereload": "^0.5.3",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
     "gulp-jshint": "^1.11.0",
@@ -25,6 +26,7 @@
     "gulp-sass": "^2.0.2",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-util": "^3.0.6",
-    "jshint-stylish": "^2.0.1"
+    "jshint-stylish": "^2.0.1",
+    "tiny-lr": "^0.1.6"
   }
 }
